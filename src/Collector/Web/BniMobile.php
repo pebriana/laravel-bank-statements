@@ -307,7 +307,7 @@ class BniMobile extends Web
             $as = $dom->getElementsByTagName('a');
             if ($as instanceOf DOMNodeList) {
                 foreach ($as as $a) {
-                    if ($a->nodeValue == 'REKENING') {
+                    if (trim($a->nodeValue) == 'REKENING') {
                         $this->savingMenuUri = $a->getAttribute('href');
                         break;
                     }
@@ -758,7 +758,7 @@ class BniMobile extends Web
             $as = $dom->getElementsByTagName('a');
             if ($as instanceOf DOMNodeList) {
                 foreach ($as as $a) {
-                    if ($a->nodeValue == 'MUTASI REKENING') {
+                    if (trim($a->nodeValue) == 'MUTASI REKENING') {
                         $this->statementUri = $a->getAttribute('href');
                         break;
                     }

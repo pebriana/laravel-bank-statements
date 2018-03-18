@@ -286,7 +286,6 @@ class Bca extends Web
 
         if ( ! $tables instanceOf DOMNodeList) {
             return $items;
-            // throw new RuntimeException('Required "table" HTML tag does not exist in page');
         }
 
         if ( ! isset($tables[4])) {
@@ -490,7 +489,7 @@ class Bca extends Web
         $url = $this->baseUri.'/authentication.do?value(actions)=logout';
 
         try {
-            $response = $this->client()->request('GET', $this->loginUri, $options);
+            $response = $this->client()->request('GET', $url, $options);
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 throw new RuntimeException(Psr7\str($e->getResponse()));

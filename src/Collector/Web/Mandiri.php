@@ -296,7 +296,6 @@ class Mandiri extends Web
 
         if ( ! $tables instanceOf DOMNodeList) {
             return $items;
-            // throw new RuntimeException('Required "table" HTML tag does not exist in page');
         }
 
         if ( ! isset($tables[4])) {

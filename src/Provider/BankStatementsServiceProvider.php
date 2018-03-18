@@ -60,22 +60,12 @@ abstract class BankStatementsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->setupConfig();
-
+        $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'sule.bank-statements');
+        
         $this->registerAccountServices();
         $this->registerStatementServices();
 
         $this->registerCollectorServices();
-    }
-
-    /**
-     * Setup the configuration.
-     *
-     * @return void
-     */
-    protected function setupConfig()
-    {
-        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'sule/bank-statements');
     }
 
     /**
@@ -86,7 +76,7 @@ abstract class BankStatementsServiceProvider extends ServiceProvider
     protected function registerAccountServices()
     {
         $this->app->singleton(Account::class, function ($app) {
-            $config = $app['config']['sule/bank-statements.accounts'];
+            $config = config('sule.bank-statements.accounts');
 
             return isset($config['table'])
                         ? new Account(
@@ -103,8 +93,8 @@ abstract class BankStatementsServiceProvider extends ServiceProvider
     protected function registerStatementServices()
     {
         $this->app->singleton(Statement::class, function ($app) {
-            $config = $app['config']['sule/bank-statements.statements'];
-            $tempStoragePath = $app['config']['sule/bank-statements.collector.temp_storage_path'];
+            $config = config('sule.bank-statements.statements');
+            $tempStoragePath = config('sule.bank-statements.collector.temp_storage_path');
 
             $collectorClasses   = $this->getCollectorClasses();
             $collectorInstances = $this->getCollectors();
@@ -143,7 +133,7 @@ abstract class BankStatementsServiceProvider extends ServiceProvider
     protected function getCollectors()
     {
         if (is_null($this->collectors)) {
-            $config = $this->app['config']['sule/bank-statements.client'];
+            $config = config('sule.bank-statements.client');
 
             $this->collectors = [];
 
@@ -164,7 +154,7 @@ abstract class BankStatementsServiceProvider extends ServiceProvider
     protected function getCollectorClasses()
     {
         if (is_null($this->collectorClasses)) {
-            $config = $this->app['config']['sule/bank-statements.collector'];
+            $config = config('sule.bank-statements.collector');
             $type   = $config['type'];
 
             if ( ! isset($config[$type])) {

@@ -108,7 +108,7 @@ interface WebInterface
      *
      * @param  \Carbon\Carbon  $startDate
      * @param  \Carbon\Carbon  $endDate
-     * @return int
+     * @return \Illuminate\Support\Collection
      * @throws \RuntimeException
      */
     public function collect(Carbon $startDate, Carbon $endDate);
